@@ -4,12 +4,7 @@ public class Algo
 {
     public static void Main()
     {
-        int[] testarr = { 87, 21, 34, 21, 35, 6, 39, 19, 0, -2, 34, 98 };
-        //int[] testarr1 = { 87, 00, 54, 74, 890, 12, 39, 87, 0, -2, 34, 98 };
-        //int[] testarr2 = { 87, 21, 34, 21, 31, 6, 39, 54, 0, -2, 34, 98 };
-        int no = 3;
-        getNMaxelements(testarr, no);
-
+        getNMaxelements();
         // BubbleSort
         // Time complexity O(n^2) + O(n)
     }
@@ -53,9 +48,14 @@ public class Algo
                     break;
                 }
                 int element = int.Parse(input);
-                Array.Resize(ref arr, arr.Length + 1); 
+
+                Array.Resize(ref arr, arr.Length + 1);
+
                 arr[arr.Length - 1] = element;
             }
+
+            Algo.GetN(arr);
+
             return arr;
         }
 
@@ -69,7 +69,9 @@ public class Algo
             do
             {
                 number = Console.ReadLine();
+
                 Algo.isLarger(arr,number);
+
                 Algo.isDigit(number);
             }
             while (Algo.isDigit(number) == false && Algo.isLarger(arr, number)); 
@@ -80,10 +82,11 @@ public class Algo
         }
 
 
-        public static void getNMaxelements(int[] arr, int n)
+        public static void getNMaxelements()
         {
             int i, j = 0,temp;
-            //List<int> list; 
+            int n;
+            int[] arr;
             arr = Algo.GetArray();
             n = Algo.GetN(arr);
 
@@ -106,4 +109,5 @@ public class Algo
     }
 }
 
-// two exceptions to handle 
+// two exceptions to handle
+//getn wouldnt get the value of the array until it has reached get max elements 
