@@ -1,9 +1,10 @@
 ﻿
-
+using System.Text.RegularExpressions;
 public class Algo
 {
     public static void Main()
     {
+
         getNMaxelements();
         // BubbleSort
         // Time complexity O(n^2) + O(n)
@@ -14,9 +15,16 @@ public class Algo
 
             isDigit = int.TryParse(number, out int num);
 
+           try
+            {
             if (isDigit == false)
             {
-                Console.WriteLine("Please enter a valid number");
+                throw new Exception("Please enter a valid number");
+            }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
 
             return isDigit;
@@ -27,86 +35,120 @@ public class Algo
             bool isLarger;
 
             isLarger = int.Parse(number) > arr.Length;
-
+            try
+            {
             if (isLarger == true)
             {
-                Console.WriteLine("Please enter a value of N lower than the length of the array");
+                throw new Exception("Please enter a value of N lower than the length of the array");
+            }
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
             return isLarger;
         }
 
         internal static int[] GetArray()
         {
-            int[] arr = Array.Empty<int>();
+            Console.WriteLine("Enter the numbers you want to input in a comma separated string");
 
-            while (true)
+            //string[] inputarray;
+
+            int[] array;
+
+        //var regex = new Regex(@"\d+,?");
+
+        //inputarray = Console.ReadLine().Split(",");
+
+        //foreach (string str in inputarray)
+        //{
+
+        //}
+
+        //while ()
+        //{
+
+        //}
+
+        //Algo.GetN(arr);
+
+        //return arr;
+        int[] arr = Array.Empty<int>();
+
+        while (true)
+        {
+            Console.WriteLine("Enter an element to the array (or enter 'stop' to finish)");
+            string input = Console.ReadLine();
+            if (input == "stop")
             {
-                Console.WriteLine("Enter an element to the array (or enter 'stop' to finish)");
-                string input = Console.ReadLine(); 
-                if (input == "stop")
-                {
-                    break;
-                }
-                int element = int.Parse(input);
-
-                Array.Resize(ref arr, arr.Length + 1);
-
-                arr[arr.Length - 1] = element;
+                break;
             }
+            int element = int.Parse(input);
 
-            Algo.GetN(arr);
+            Array.Resize(ref arr, arr.Length + 1);
 
-            return arr;
+            arr[arr.Length - 1] = element;
         }
 
-        internal static int GetN(int[] arr)
+        Algo.GetN(arr);
+
+        return arr;
+    }
+
+    internal static int GetN(int[] arr)
         {
             string number;
             int newNumber;
 
-            Console.WriteLine("Enter a number of n Max Elements you want to find");
-            //check if n number of elements is greater than array length 
-            do
-            {
-                number = Console.ReadLine();
+                   Console.WriteLine("Enter a number of n Max Elements you want to find");
+                   number = Console.ReadLine();
 
-                Algo.isLarger(arr,number);
+                   newNumber = int.Parse(number);
 
-                Algo.isDigit(number);
-            }
-            while (Algo.isDigit(number) == false && Algo.isLarger(arr, number)); 
+                   Algo.isLarger(arr, number);
 
-            newNumber = int.Parse(number);
-
-            return newNumber;
+                   return newNumber;   
         }
 
 
         public static void getNMaxelements()
         {
-            int i, j = 0,temp;
-            int n;
+       int i, j, n, temp;
+
+            int[] result;
+
             int[] arr;
+
             arr = Algo.GetArray();
+
             n = Algo.GetN(arr);
 
-        for (i = 0; i < arr.Length - 1; i++)
-        {
-            for (j = 0; j < arr.Length - i - 1; j++)
+            List<int> fromarr = arr.ToList();
+
+            List<int> nMaxElementsList = new List<int>(n);
+
+            for (i = 0; i < n; i++)
             {
-                if (arr[j] > arr[j + 1])
+                int maxIndex = i;
+                for (j = i + 1; j < fromarr.Count; j++)
                 {
-                    temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
+                    if (fromarr[j] > fromarr[maxIndex])
+                    {
+                        maxIndex = j;
+                    }
                 }
+                nMaxElementsList.Add(fromarr[maxIndex]);
+
+                fromarr[maxIndex] = fromarr[i];
+
+            }
+            result = nMaxElementsList.ToArray();
+
+            for (int k = 0; k < result.Length; k++)
+            {
+                Console.WriteLine(result[k]);
             }
         }
-        for (int k = 0; k < n; k++)
-        {
-            Console.WriteLine(arr[arr.Length - 1 - k]);
-        }
-    }
 }
 
 // two exceptions to handle
