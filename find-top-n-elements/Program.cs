@@ -1,5 +1,6 @@
 ﻿
 using System.Text.RegularExpressions;
+
 public class Algo
 {
     public static void Main()
@@ -9,111 +10,123 @@ public class Algo
         // BubbleSort
         // Time complexity O(n^2) + O(n)
     }
-        public static bool isDigit(string number)
+
+     
+        public static bool TryParseInt (string input, out int result)
         {
-            bool isDigit;
-
-            isDigit = int.TryParse(number, out int num);
-
-           try
+        result = default(int);
+            try
             {
-            if (isDigit == false)
-            {
-                throw new Exception("Please enter a valid number");
-            }
+                return int.TryParse(input, out result);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Error: {ex.Message}");
+                return false;
+            }
+    }
+           
+
+
+        public static bool TryParseIntArray(string input,out int[] result)
+        {
+             result = null;
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                Console.WriteLine("Input is empty or Null");
+                return false;
+            }
+            var elements = input.Split(new char[] {','},StringSplitOptions.RemoveEmptyEntries);
+
+            if (!elements.Any())
+            {
+                Console.WriteLine("Input does not contain any elements");
+                return false;
             }
 
-            return isDigit;
+            var parsedElements = new List<int>();
+
+            foreach (var element in elements)
+            {
+                if (TryParseInt(element.Trim(), out var parsedElement))
+                {
+                    parsedElements.Add(parsedElement);
+                }
+                else
+                {
+                    Console.WriteLine($"Element '{element}' is not a valid integer");
+                    return false;
+                }
+            }
+            result = parsedElements.ToArray();
+
+            return true;
         }
 
-        public static bool isLarger(int[] arr,string number)
-        {
-            bool isLarger;
+     public static bool TryGetValidN(int[] arr, string input, out int result)
+       {
+ 
+        result = 0;
 
-            isLarger = int.Parse(number) > arr.Length;
-            try
-            {
-            if (isLarger == true)
-            {
-                throw new Exception("Please enter a value of N lower than the length of the array");
-            }
-            } catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return isLarger;
+        if (!TryParseInt(input,out result))
+        {
+            Console.WriteLine("Input is not a valid integer");
+            return false;
         }
-
-        internal static int[] GetArray()
+        if (result < 1 )
         {
-            Console.WriteLine("Enter the numbers you want to input in a comma separated string");
+            Console.WriteLine("Input must be greater than zero");
+            return false;
+        }
+        if (result > arr.Length)
+        {
+            Console.WriteLine($"Input can not be greater than the length of the array ({arr.Length})");
+            return false;
+        }
+        return true;
+    }
 
-            //string[] inputarray;
-
-            int[] array;
-
-        //var regex = new Regex(@"\d+,?");
-
-        //inputarray = Console.ReadLine().Split(",");
-
-        //foreach (string str in inputarray)
-        //{
-
-        //}
-
-        //while ()
-        //{
-
-        //}
-
-        //Algo.GetN(arr);
-
-        //return arr;
-        int[] arr = Array.Empty<int>();
+    internal static int[] GetArray()
+        {
 
         while (true)
         {
-            Console.WriteLine("Enter an element to the array (or enter 'stop' to finish)");
-            string input = Console.ReadLine();
-            if (input == "stop")
+            Console.WriteLine("Enter the numbers you want to input in a comma separated string");
+
+            var input = Console.ReadLine();
+
+           if (TryParseIntArray(input,out var arr))
             {
-                break;
+                return arr;
             }
-            int element = int.Parse(input);
-
-            Array.Resize(ref arr, arr.Length + 1);
-
-            arr[arr.Length - 1] = element;
+            Console.WriteLine("Please try again:");
         }
 
-        Algo.GetN(arr);
-
-        return arr;
     }
 
     internal static int GetN(int[] arr)
         {
-            string number;
-            int newNumber;
+           while (true)
+            {
+                 Console.WriteLine("Enter a number of max elements you want to find");
 
-                   Console.WriteLine("Enter a number of n Max Elements you want to find");
-                   number = Console.ReadLine();
+                 var input = Console.ReadLine();
 
-                   newNumber = int.Parse(number);
-
-                   Algo.isLarger(arr, number);
-
-                   return newNumber;   
+                if (TryGetValidN(arr, input,out var n))
+                {
+                    return n;
+                }
+                 Console.WriteLine("Please try again");
+            }
         }
 
 
         public static void getNMaxelements()
         {
-       int i, j, n, temp;
+        try
+        {
+            int i, j, n, temp;
 
             int[] result;
 
@@ -137,6 +150,7 @@ public class Algo
                         maxIndex = j;
                     }
                 }
+
                 nMaxElementsList.Add(fromarr[maxIndex]);
 
                 fromarr[maxIndex] = fromarr[i];
@@ -144,12 +158,21 @@ public class Algo
             }
             result = nMaxElementsList.ToArray();
 
+            Console.WriteLine($"The '{n}' maxElements from the array are");
+
             for (int k = 0; k < result.Length; k++)
             {
                 Console.WriteLine(result[k]);
             }
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+      }
 }
 
 // two exceptions to handle
-//getn wouldnt get the value of the array until it has reached get max elements 
+//getn wouldnt get the value of the array until it has reached get max elements
+
+// the error handling should happen where we are assigning 
