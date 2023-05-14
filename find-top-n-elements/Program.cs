@@ -25,8 +25,6 @@ public class Algo
                 return false;
             }
     }
-           
-
 
         public static bool TryParseIntArray(string input,out int[] result)
         {
@@ -37,6 +35,7 @@ public class Algo
                 Console.WriteLine("Input is empty or Null");
                 return false;
             }
+
             var elements = input.Split(new char[] {','},StringSplitOptions.RemoveEmptyEntries);
 
             if (!elements.Any())
@@ -90,7 +89,7 @@ public class Algo
     internal static int[] GetArray()
         {
 
-        while (true)
+        while (true) 
         {
             Console.WriteLine("Enter the numbers you want to input in a comma separated string");
 
