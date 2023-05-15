@@ -1,5 +1,5 @@
 ﻿
-using System.Text.RegularExpressions;
+//Console application to get max n elements 
 
 public class Algo
 {
@@ -11,7 +11,7 @@ public class Algo
         // Time complexity O(n^2) + O(n)
     }
 
-     
+        // Method to parse input and test if input is an integer 
         public static bool TryParseInt (string input, out int result)
         {
         result = default(int);
@@ -25,7 +25,8 @@ public class Algo
                 return false;
             }
     }
-
+        //Method to parse input for the array and test if input is valid that is it is of the form(of the form
+        // 7,3,4,5,5,2,3,3,)
         public static bool TryParseIntArray(string input,out int[] result)
         {
              result = null;
@@ -63,6 +64,7 @@ public class Algo
             return true;
         }
 
+     // Method to check if the value of N is a valid input 
      public static bool TryGetValidN(int[] arr, string input, out int result)
        {
  
@@ -85,7 +87,7 @@ public class Algo
         }
         return true;
     }
-
+    //Method to get all the elements of the Array 
     internal static int[] GetArray()
         {
 
@@ -103,7 +105,7 @@ public class Algo
         }
 
     }
-
+    // Method to get the value of n 
     internal static int GetN(int[] arr)
         {
            while (true)
@@ -120,8 +122,8 @@ public class Algo
             }
         }
 
-
-        public static void getNMaxelements()
+    // Method to get the n max elements 
+    public static void getNMaxelements()
         {
         try
         {
@@ -163,6 +165,7 @@ public class Algo
             {
                 Console.WriteLine(result[k]);
             }
+            Console.ReadLine();
         }
         catch (Exception ex)
         {
@@ -171,7 +174,3 @@ public class Algo
       }
 }
 
-// two exceptions to handle
-//getn wouldnt get the value of the array until it has reached get max elements
-
-// the error handling should happen where we are assigning 
