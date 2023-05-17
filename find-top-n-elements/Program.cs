@@ -159,7 +159,7 @@ public class Algo
             }
             result = nMaxElementsList.ToArray();
 
-            Console.WriteLine($"The '{n}' maxElements from the array are");
+            Console.WriteLine($"The {n} maxElements from the array are");
 
             for (int k = 0; k < result.Length; k++)
             {
