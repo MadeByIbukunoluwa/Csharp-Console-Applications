@@ -5,10 +5,11 @@ public class Algo
 {
     public static void Main()
     {
-
+        //Time Complexity -
+        // O(n * k ) + O(n)
+        // k - length of input array
+        // n - no of max elements  
         getNMaxelements();
-        // BubbleSort
-        // Time complexity O(n^2) + O(n)
     }
 
         // Method to parse input and test if input is an integer 
